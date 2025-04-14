@@ -24,10 +24,11 @@ from richchk.model.richchk.unis.unit_to_weapon_lookup import get_weapons_for_uni
 from richchk.model.richchk.unis.weapon_setting import WeaponSetting
 from richchk.model.richchk.unix.rich_unix_section import RichUnixSection
 
+
 # replace this with the path to the DLL on your local computer
 PATH_TO_STORMLIB_DLL = None
-INPUT_MAP_FILE = "maps/base-map.scx"
-OUTPUT_MAP_FILE = "generated-maps/hello-world-generated.scx"
+INPUT_MAP_FILE = "./examples/maps/(8)The Hunters.scm"
+OUTPUT_MAP_FILE = "./examples/generated-maps/hello-world-generated.scx"
 
 BLACKLISTED_UNIT_IDS = [
     UnitId.ANY_UNIT,
@@ -75,6 +76,10 @@ def generate_display_hello_world_trigger():
 if __name__ == "__main__":
     mpqio = StarCraftMpqIoHelper.create_mpq_io(PATH_TO_STORMLIB_DLL)
     chk = mpqio.read_chk_from_mpq(INPUT_MAP_FILE)
+    dim = chk.chk_sections[6]
+    
+    ChkQueryUtil.find_only_decoded_section_in_chk
+    
     new_unit_settings = generate_unit_settings()
     new_unix = RichUnixEditor().upsert_all_unit_settings(
         new_unit_settings,

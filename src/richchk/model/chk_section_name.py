@@ -29,6 +29,7 @@ class ChkSectionName(Enum):
     UPUS = ("UPUS",)
     SWNM = ("SWNM",)
     WAV = ("WAV ",)
+    DIM = "DIM "  # Note: Must be exactly 4 characters, with trailing space
     # special case for unhandled/unknown CHK section
     # this does not correspond to any real CHK section name
     UNKNOWN = ("UNKNOWN",)
@@ -42,8 +43,11 @@ class ChkSectionName(Enum):
 
     @classmethod
     def get_by_value(cls, value: str) -> "ChkSectionName":
-        return {e.value: e for e in ChkSectionName}[value]
+        for enum_value in cls:
+            if enum_value.value == value:
+                return enum_value
+        raise ValueError(f"No enum value found for {value}")
 
     @classmethod
     def contains(cls, value: str) -> bool:
-        return value in {e.value: e for e in ChkSectionName}
+        return value in [e.value for e in cls]
